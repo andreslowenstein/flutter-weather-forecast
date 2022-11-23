@@ -28,7 +28,7 @@ class GetWeatherLoading extends HomeState {
 }
 
 class GetWeatherLoaded extends HomeState {
-  final WeatherModel weather;
+  final WeatherModelList weather;
 
   GetWeatherLoaded({
     required super.currentTabIndex,
@@ -43,7 +43,7 @@ class TabChangeLoading extends HomeState {
 }
 
 class TabChangeLoaded extends HomeState {
-  final WeatherModel weather;
+  final WeatherModelList weather;
 
   TabChangeLoaded({
     required super.currentTabIndex,

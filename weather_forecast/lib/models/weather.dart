@@ -1,22 +1,40 @@
 import 'dart:convert';
 
+class WeatherModelList {
+  final List<WeatherModel>? weatherList;
+  final City? name;
+
+  WeatherModelList({
+    required this.weatherList,
+    required this.name,
+  });
+
+  factory WeatherModelList.fromJson(String j) {
+    var x = json.decode(j);
+    return WeatherModelList.fromMap(x);
+  }
+
+  factory WeatherModelList.fromMap(Map<String, dynamic> x) {
+    return new WeatherModelList(
+      weatherList: WeatherModel.mapList(x["list"]),
+      name: City.fromMap(x['city']),
+    );
+  }
+}
+
 class WeatherModel {
-  final List<Weather> weather;
-  final Main main;
-  final int visibility;
-  final Wind wind;
-  final int id;
-  final String name;
-  final int cod;
+  final List<Weather>? weather;
+  final Main? main;
+  final int? visibility;
+  final Wind? wind;
+  final int? date;
 
   WeatherModel({
     required this.weather,
     required this.main,
     required this.visibility,
     required this.wind,
-    required this.id,
-    required this.name,
-    required this.cod,
+    required this.date,
   });
 
   factory WeatherModel.fromJson(String j) {
@@ -30,10 +48,16 @@ class WeatherModel {
       main: Main.fromMap(x['main']),
       visibility: x['visibility'] as int,
       wind: Wind.fromMap(x['wind']),
-      id: x['id'] as int,
-      name: x['name'],
-      cod: x['cod'] as int,
+      date: x['dt'] as int,
     );
+  }
+
+  static List<WeatherModel> mapList(List<dynamic>? x) {
+    if (x == null) return [];
+
+    return x
+        .map((f) => WeatherModel.fromMap(f as Map<String, dynamic>))
+        .toList();
   }
 }
 
@@ -73,13 +97,27 @@ class Weather {
   }
 }
 
+class City {
+  final String name;
+
+  City({
+    required this.name,
+  });
+
+  factory City.fromMap(Map<String, dynamic> x) {
+    return new City(
+      name: x['name'],
+    );
+  }
+}
+
 class Main {
-  double temp;
-  double feelsLike;
-  double tempMin;
-  double tempMax;
-  int pressure;
-  int humidity;
+  num? temp;
+  num? feelsLike;
+  num? tempMin;
+  num? tempMax;
+  int? pressure;
+  int? humidity;
 
   Main({
     required this.temp,
@@ -92,10 +130,10 @@ class Main {
 
   factory Main.fromMap(Map<String, dynamic> x) {
     return new Main(
-      temp: x['temp'] as double,
-      feelsLike: x['feels_like'] as double,
-      tempMin: x['temp_min'] as double,
-      tempMax: x['temp_max'] as double,
+      temp: x['temp'] as num,
+      feelsLike: x['feels_like'] as num,
+      tempMin: x['temp_min'] as num,
+      tempMax: x['temp_max'] as num,
       pressure: x['pressure'] as int,
       humidity: x['humidity'] as int,
     );
@@ -103,7 +141,7 @@ class Main {
 }
 
 class Wind {
-  double speed;
+  double? speed;
 
   Wind({
     required this.speed,

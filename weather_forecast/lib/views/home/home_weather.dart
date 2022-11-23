@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast/models/weather.dart';
 import 'package:weather_forecast/views/home/bloc/home_bloc.dart';
 import 'package:weather_forecast/widgets/wf_dropdown_field.dart';
 import 'package:weather_forecast/widgets/wf_flexible_form_body.dart';
+import 'package:intl/intl.dart';
 
 class HomeWeather extends StatefulWidget {
   HomeWeather({super.key});
@@ -45,6 +47,8 @@ class _HomeWeatherState extends State<HomeWeather> {
 
   Scaffold WeatherView(
       ColorScheme color, BuildContext context, state, TextTheme text) {
+    final WeatherModel currentWeather = state.weather.weatherList[0];
+    final List<WeatherModel> weatherList = state.weather.weatherList;
     return Scaffold(
       backgroundColor: color.primary,
       body: SafeArea(
@@ -55,8 +59,13 @@ class _HomeWeatherState extends State<HomeWeather> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(
+                        'Weather forecast',
+                        style:
+                            text.titleMedium!.copyWith(color: color.onPrimary),
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width / 5,
                         child: WFDropdownField(
@@ -84,27 +93,30 @@ class _HomeWeatherState extends State<HomeWeather> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                    state.weather.name,
+                    state.weather.name.name,
                     style: text.titleLarge!.copyWith(color: color.onPrimary),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    state.weather.weather[0].description,
+                    currentWeather.weather![0].description!,
                     style: text.titleMedium!.copyWith(color: color.onPrimary),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Image.asset(
-                      'assets/icons/${state.weather.weather[0].icon}.png'),
+                      'assets/icons/${currentWeather.weather![0].icon}.png'),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    state.weather.main.temp.toString() + '°',
+                    currentWeather.main!.temp.toString() + '°',
                     style: text.displayLarge!.copyWith(color: color.onPrimary),
                     textAlign: TextAlign.center,
                   ),
@@ -122,7 +134,7 @@ class _HomeWeatherState extends State<HomeWeather> {
                             height: 10,
                           ),
                           Text(
-                            state.weather.main.tempMin.toString() + '°',
+                            currentWeather.main!.tempMin.toString() + '°',
                             style: text.bodyMedium!.copyWith(
                               color: color.onPrimary,
                               fontWeight: FontWeight.w600,
@@ -144,7 +156,7 @@ class _HomeWeatherState extends State<HomeWeather> {
                             height: 10,
                           ),
                           Text(
-                            state.weather.main.tempMax.toString() + '°',
+                            currentWeather.main!.tempMax.toString() + '°',
                             style: text.bodyMedium!.copyWith(
                               color: color.onPrimary,
                               fontWeight: FontWeight.w600,
@@ -163,77 +175,17 @@ class _HomeWeatherState extends State<HomeWeather> {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.water_outlined,
-                        size: 30,
-                        color: color.onPrimary,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        state.weather.main.humidity.toString(),
-                        style: text.bodyMedium!.copyWith(
-                          color: color.onPrimary,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '|',
-                        style: text.bodyMedium!.copyWith(
-                          color: color.onPrimary,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Icon(
-                        Icons.air_outlined,
-                        size: 30,
-                        color: color.onPrimary,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        state.weather.wind.speed.toString() + ' km/h',
-                        style: text.bodyMedium!.copyWith(
-                          color: color.onPrimary,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '|',
-                        style: text.bodyMedium!.copyWith(
-                          color: color.onPrimary,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Icon(
-                        Icons.compress_outlined,
-                        size: 30,
-                        color: color.onPrimary,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        state.weather.main.pressure.toString() + ' hPa',
-                        style: text.bodyMedium!.copyWith(
-                          color: color.onPrimary,
-                        ),
-                      ),
-                    ],
+                  AdittionalData(color, currentWeather, text),
+                  SizedBox(
+                    height: 20,
                   ),
+                  Divider(
+                    color: color.onPrimary,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CardWeather(weatherList, text, color)
                 ],
               ),
             ),
@@ -243,6 +195,141 @@ class _HomeWeatherState extends State<HomeWeather> {
             child: Image.asset(
               'assets/480_Color_gris.png',
               height: 60,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row AdittionalData(ColorScheme color, currentWeather, TextTheme text) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.water_outlined,
+          size: 30,
+          color: color.onPrimary,
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          currentWeather.main.humidity.toString(),
+          style: text.bodyMedium!.copyWith(
+            color: color.onPrimary,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          '|',
+          style: text.bodyMedium!.copyWith(
+            color: color.onPrimary,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Icon(
+          Icons.air_outlined,
+          size: 30,
+          color: color.onPrimary,
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          currentWeather.wind.speed.toString() + ' km/h',
+          style: text.bodyMedium!.copyWith(
+            color: color.onPrimary,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          '|',
+          style: text.bodyMedium!.copyWith(
+            color: color.onPrimary,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Icon(
+          Icons.compress_outlined,
+          size: 30,
+          color: color.onPrimary,
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          currentWeather.main.pressure.toString() + ' hPa',
+          style: text.bodyMedium!.copyWith(
+            color: color.onPrimary,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Card CardWeather(
+      List<WeatherModel> weatherList, TextTheme text, ColorScheme color) {
+    return Card(
+      child: Container(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: weatherList.map((e) {
+                DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(
+                  e.date! * 1000,
+                );
+                String date = DateFormat("dd/MM").format(tsdate);
+                String hour = DateFormat("hh:mm a").format(tsdate);
+
+                return Row(
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          date,
+                          style:
+                              text.labelLarge!.copyWith(color: color.onPrimary),
+                        ),
+                        Text(
+                          hour,
+                          style:
+                              text.labelSmall!.copyWith(color: color.onPrimary),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Image.asset(
+                          'assets/icons/${e.weather![0].icon}.png',
+                          height: 30,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          e.main!.temp.toString() + '°',
+                          style:
+                              text.labelLarge!.copyWith(color: color.onPrimary),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 10,
+                    )
+                  ],
+                );
+              }).toList(),
             ),
           ),
         ),

@@ -36,6 +36,7 @@ class _ContactPageState extends State<ContactPage> {
         ),
       ),
     );
+    FocusScope.of(context).requestFocus(FocusNode());
   }
 
   @override
@@ -65,6 +66,7 @@ class _ContactPageState extends State<ContactPage> {
                     if (value == '') {
                       return "Name must be completed.";
                     }
+                    return null;
                   },
                 ),
                 DateTimePicker(
@@ -78,6 +80,7 @@ class _ContactPageState extends State<ContactPage> {
                     if (value == '') {
                       return "Date must be completed.";
                     }
+                    return null;
                   },
                   onSaved: (val) => print(val),
                 ),
@@ -111,9 +114,10 @@ class _ContactPageState extends State<ContactPage> {
                     if (value == '') {
                       return "Telephone must be completed.";
                     }
+                    return null;
                   },
                 ),
-                WFButton.accent(
+                WFButton.white(
                   label: 'Send',
                   onPressed: (context) => {
                     onPressed(context),

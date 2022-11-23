@@ -203,6 +203,7 @@ final ThemeData wfTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
+    color: wfPrimaryColor[400],
     elevation: 2,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(

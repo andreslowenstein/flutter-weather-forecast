@@ -28,7 +28,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       GetWeatherEvent event, Emitter<HomeState> emit) async {
     emit(GetWeatherLoading(currentTabIndex: null));
 
-    WeatherModel weather = await _service.getWeather('london', currentLanguage);
+    WeatherModelList weather =
+        await _service.getWeather('london', currentLanguage);
 
     emit(GetWeatherLoaded(weather: weather, currentTabIndex: null));
   }
@@ -51,7 +52,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       default:
         city = 'London';
     }
-    WeatherModel weather = await _service.getWeather(city, currentLanguage);
+    WeatherModelList weather = await _service.getWeather(city, currentLanguage);
 
     emit(TabChangeLoaded(weather: weather, currentTabIndex: event.index));
   }
@@ -75,7 +76,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         city = 'London';
     }
     currentLanguage = event.lang;
-    WeatherModel weather = await _service.getWeather(city, currentLanguage);
+    WeatherModelList weather = await _service.getWeather(city, currentLanguage);
 
     emit(TabChangeLoaded(weather: weather, currentTabIndex: event.index));
   }
