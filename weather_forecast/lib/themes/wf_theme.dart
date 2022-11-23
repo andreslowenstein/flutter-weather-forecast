@@ -57,7 +57,7 @@ Map<int, Color> wfAccentSwatch = {
 };
 
 var wfPrimaryColor =
-    MaterialColor(wfPrimarySwatch[600]!.value, wfPrimarySwatch);
+    MaterialColor(wfPrimarySwatch[500]!.value, wfPrimarySwatch);
 
 var wfSecondaryColor =
     MaterialColor(wfSecondarySwatch[600]!.value, wfSecondarySwatch);
@@ -88,7 +88,7 @@ final ThemeData wfTheme = ThemeData(
     onSecondaryContainer: Colors.white,
     onTertiaryContainer: swBlack,
     onErrorContainer: Colors.red,
-    primary: wfPrimaryColor,
+    primary: wfPrimaryColor.shade600,
     onPrimary: Colors.white,
     secondary: wfSecondaryColor,
     onSecondary: Colors.white,
@@ -203,7 +203,7 @@ final ThemeData wfTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
-    color: wfPrimaryColor[400],
+    color: wfPrimaryColor[300],
     elevation: 2,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
