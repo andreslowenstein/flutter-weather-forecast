@@ -104,7 +104,7 @@ final ThemeData wfTheme = ThemeData(
   appBarTheme: AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
     ),
     color: wfPrimaryColor,
     titleTextStyle: TextStyle(
