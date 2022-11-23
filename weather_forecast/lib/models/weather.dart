@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:weather_forecast/models/city.dart';
+import 'package:weather_forecast/models/main.dart';
+import 'package:weather_forecast/models/wind.dart';
+
 class WeatherModelList {
   final List<WeatherModel>? weatherList;
   final City? name;
@@ -94,62 +98,5 @@ class Weather {
     main = json['main'];
     description = json['description'];
     icon = json['icon'];
-  }
-}
-
-class City {
-  final String name;
-
-  City({
-    required this.name,
-  });
-
-  factory City.fromMap(Map<String, dynamic> x) {
-    return new City(
-      name: x['name'],
-    );
-  }
-}
-
-class Main {
-  num? temp;
-  num? feelsLike;
-  num? tempMin;
-  num? tempMax;
-  int? pressure;
-  int? humidity;
-
-  Main({
-    required this.temp,
-    required this.feelsLike,
-    required this.tempMin,
-    required this.tempMax,
-    required this.pressure,
-    required this.humidity,
-  });
-
-  factory Main.fromMap(Map<String, dynamic> x) {
-    return new Main(
-      temp: x['temp'] as num,
-      feelsLike: x['feels_like'] as num,
-      tempMin: x['temp_min'] as num,
-      tempMax: x['temp_max'] as num,
-      pressure: x['pressure'] as int,
-      humidity: x['humidity'] as int,
-    );
-  }
-}
-
-class Wind {
-  double? speed;
-
-  Wind({
-    required this.speed,
-  });
-
-  factory Wind.fromMap(Map<String, dynamic> x) {
-    return new Wind(
-      speed: x['speed'] as double,
-    );
   }
 }
