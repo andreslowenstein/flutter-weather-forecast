@@ -12,6 +12,15 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController dateController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController telephoneController = new TextEditingController();
+
+  bool name = false;
+  bool date = false;
+  bool email = false;
+  bool telephone = false;
 
   void onPressed(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
@@ -40,6 +49,31 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    nameController.addListener(() {
+      setState(() {
+        name = nameController.text.isNotEmpty;
+      });
+    });
+    dateController.addListener(() {
+      setState(() {
+        date = dateController.text.isNotEmpty;
+      });
+    });
+    emailController.addListener(() {
+      setState(() {
+        email = emailController.text.isNotEmpty;
+      });
+    });
+    telephoneController.addListener(() {
+      setState(() {
+        telephone = telephoneController.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final color = Theme.of(context).colorScheme;
@@ -57,6 +91,7 @@ class _ContactPageState extends State<ContactPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 WFTextFormField.text(
+                  controller: nameController,
                   placeHolder: 'Name',
                   prefixIcon: Icon(
                     Icons.person_outline,
@@ -70,9 +105,9 @@ class _ContactPageState extends State<ContactPage> {
                   },
                 ),
                 DateTimePicker(
+                  controller: dateController,
                   cursorColor: color.onPrimary,
                   style: text.bodyLarge!.copyWith(color: color.onPrimary),
-                  initialValue: '',
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2100),
                   dateLabelText: 'Date',
@@ -85,6 +120,7 @@ class _ContactPageState extends State<ContactPage> {
                   onSaved: (val) => print(val),
                 ),
                 WFTextFormField.text(
+                  controller: emailController,
                   placeHolder: 'Email',
                   prefixIcon: Icon(
                     Icons.email_outlined,
@@ -94,7 +130,6 @@ class _ContactPageState extends State<ContactPage> {
                     if (value!.trim().isEmpty) {
                       return 'Email must be completed.';
                     }
-
                     RegExp exp = new RegExp(
                         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
 
@@ -105,6 +140,7 @@ class _ContactPageState extends State<ContactPage> {
                   },
                 ),
                 WFTextFormField.number(
+                  controller: telephoneController,
                   placeHolder: 'Telephone',
                   prefixIcon: Icon(
                     Icons.person_outline,
@@ -122,6 +158,7 @@ class _ContactPageState extends State<ContactPage> {
                   onPressed: (context) => {
                     onPressed(context),
                   },
+                  disabled: (!name || !telephone || !date || !email),
                 )
               ],
             ),
