@@ -26,11 +26,10 @@ class WeatherModel {
 
   factory WeatherModel.fromMap(Map<String, dynamic> x) {
     return new WeatherModel(
-      // weather = x['weather'] as String,
-      weather: Weather.mapList(x["CUOTAS"] as List<dynamic>?),
-      main: x['main'] as Main,
+      weather: Weather.mapList(x["weather"]),
+      main: Main.fromMap(x['main']),
       visibility: x['visibility'] as int,
-      wind: x['wind'] as Wind,
+      wind: Wind.fromMap(x['wind']),
       id: x['id'] as int,
       name: x['name'],
       cod: x['cod'] as int,
@@ -81,8 +80,6 @@ class Main {
   double tempMax;
   int pressure;
   int humidity;
-  int seaLevel;
-  int grndLevel;
 
   Main({
     required this.temp,
@@ -91,19 +88,30 @@ class Main {
     required this.tempMax,
     required this.pressure,
     required this.humidity,
-    required this.seaLevel,
-    required this.grndLevel,
   });
+
+  factory Main.fromMap(Map<String, dynamic> x) {
+    return new Main(
+      temp: x['temp'] as double,
+      feelsLike: x['feels_like'] as double,
+      tempMin: x['temp_min'] as double,
+      tempMax: x['temp_max'] as double,
+      pressure: x['pressure'] as int,
+      humidity: x['humidity'] as int,
+    );
+  }
 }
 
 class Wind {
   double speed;
-  int deg;
-  double gust;
 
   Wind({
     required this.speed,
-    required this.deg,
-    required this.gust,
   });
+
+  factory Wind.fromMap(Map<String, dynamic> x) {
+    return new Wind(
+      speed: x['speed'] as double,
+    );
+  }
 }

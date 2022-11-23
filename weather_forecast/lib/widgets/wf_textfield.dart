@@ -84,6 +84,7 @@ class WFTextFormField extends StatelessWidget {
       keyboardType: this.keyboardType,
       enabled: this.enabled,
       textAlign: this.textAlign,
+      cursorColor: Theme.of(context).colorScheme.onPrimary,
       style: Theme.of(context)
           .textTheme
           .bodyMedium!

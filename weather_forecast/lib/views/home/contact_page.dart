@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/widgets/wf_button.dart';
 import 'package:weather_forecast/widgets/wf_textfield.dart';
@@ -12,14 +13,29 @@ class ContactPage extends StatefulWidget {
 class _ContactPageState extends State<ContactPage> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _dateController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _telController = new TextEditingController();
-
   void onPressed(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(top: 14.7),
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        dismissDirection: DismissDirection.down,
+        content: Text(
+          'Sended!',
+          style: Theme.of(context).textTheme.labelLarge,
+          textAlign: TextAlign.center,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -46,22 +62,24 @@ class _ContactPageState extends State<ContactPage> {
                     color: color.onPrimary,
                   ),
                   validator: (value) {
-                    if (_nameController.text == '') {
+                    if (value == '') {
                       return "Name must be completed.";
                     }
                   },
                 ),
-                WFTextFormField.text(
-                  placeHolder: 'Birth Date',
-                  prefixIcon: Icon(
-                    Icons.calendar_month_outlined,
-                    color: color.onPrimary,
-                  ),
+                DateTimePicker(
+                  cursorColor: color.onPrimary,
+                  style: text.bodyLarge!.copyWith(color: color.onPrimary),
+                  initialValue: '',
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  dateLabelText: 'Date',
                   validator: (value) {
-                    if (_nameController.text == '') {
-                      return "Name must be completed.";
+                    if (value == '') {
+                      return "Date must be completed.";
                     }
                   },
+                  onSaved: (val) => print(val),
                 ),
                 WFTextFormField.text(
                   placeHolder: 'Email',
@@ -90,7 +108,7 @@ class _ContactPageState extends State<ContactPage> {
                     color: color.onPrimary,
                   ),
                   validator: (value) {
-                    if (_nameController.text == '') {
+                    if (value == '') {
                       return "Telephone must be completed.";
                     }
                   },

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast/views/home/bloc/home_bloc.dart';
@@ -5,18 +7,29 @@ import 'package:weather_forecast/views/home/contact_page.dart';
 import 'package:weather_forecast/views/home/home_weather.dart';
 import 'package:weather_forecast/widgets/wf_navbar.dart';
 
-class HomeLayout extends StatelessWidget {
+class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 
   static List<Widget> _widgetOptions = <Widget>[
-    // HomeWeather(city: 'London'),
-    // HomeWeather(city: 'Buenos Aires'),
-    // HomeWeather(city: 'New York'),
     HomeWeather(),
     HomeWeather(),
     HomeWeather(),
     ContactPage(),
   ];
+
+  @override
+  State<HomeLayout> createState() => _HomeLayoutState();
+}
+
+class _HomeLayoutState extends State<HomeLayout> {
+  @override
+  void initState() {
+    super.initState();
+    scheduleMicrotask(() {
+      BlocProvider.of<HomeBloc>(context)
+          .add(GetWeatherEvent(city: 'london', lang: 'en'));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +40,9 @@ class HomeLayout extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          body: _widgetOptions.elementAt(state.currentTabIndex),
+          body: HomeLayout._widgetOptions.elementAt(state.currentTabIndex ?? 0),
           bottomNavigationBar: WFNavBar(
-            selectedIndex: state.currentTabIndex,
+            selectedIndex: state.currentTabIndex ?? 0,
             onItemTapped: _onItemTapped,
           ),
         );

@@ -37,7 +37,7 @@ class WFNavBar extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.location_city,
+                Icons.place_outlined,
                 size: 30,
               ),
               label: 'London',
@@ -45,7 +45,7 @@ class WFNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.location_city,
+                Icons.place_outlined,
                 size: 30,
               ),
               label: 'Buenos Aires',
@@ -53,7 +53,7 @@ class WFNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.location_city,
+                Icons.place_outlined,
                 size: 30,
               ),
               label: 'New York',
@@ -61,7 +61,7 @@ class WFNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.contact_support_outlined,
+                Icons.person_outline,
                 size: 30,
               ),
               label: 'Contact',
