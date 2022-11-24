@@ -1,5 +1,5 @@
 class Wind {
-  double? speed;
+  num? speed;
 
   Wind({
     required this.speed,
@@ -7,7 +7,7 @@ class Wind {
 
   factory Wind.fromMap(Map<String, dynamic> x) {
     return new Wind(
-      speed: x['speed'] as double,
+      speed: x['speed'] as num,
     );
   }
 }
