@@ -7,7 +7,9 @@ import 'package:weather_forecast/widgets/wf_flexible_form_body.dart';
 import 'package:intl/intl.dart';
 
 class HomeWeather extends StatefulWidget {
-  HomeWeather({super.key});
+  HomeWeather({super.key, required this.tabIndex});
+
+  final int tabIndex;
 
   @override
   State<HomeWeather> createState() => _HomeWeatherState();
@@ -83,8 +85,9 @@ class _HomeWeatherState extends State<HomeWeather> {
                               currentItem = value;
                               BlocProvider.of<HomeBloc>(context).add(
                                 SwitchLanguageEvent(
-                                    lang: value == 'usa.png' ? 'en' : 'es',
-                                    index: 0),
+                                  lang: value == 'usa.png' ? 'en' : 'es',
+                                  index: widget.tabIndex,
+                                ),
                               );
                             });
                           },

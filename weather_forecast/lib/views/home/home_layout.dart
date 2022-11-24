@@ -11,9 +11,9 @@ class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 
   static List<Widget> _widgetOptions = <Widget>[
-    HomeWeather(),
-    HomeWeather(),
-    HomeWeather(),
+    HomeWeather(tabIndex: 0),
+    HomeWeather(tabIndex: 1),
+    HomeWeather(tabIndex: 2),
     ContactPage(),
   ];
 

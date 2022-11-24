@@ -22,7 +22,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   String currentLanguage = 'en';
-  int currentTab = 0;
 
   Future<void> getWeather(
       GetWeatherEvent event, Emitter<HomeState> emit) async {
@@ -60,6 +59,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> switchLanguage(
       SwitchLanguageEvent event, Emitter<HomeState> emit) async {
     emit(this.state.copyWith(currentTabIndex: event.index));
+    currentLanguage = event.lang;
     emit(TabChangeLoading(currentTabIndex: event.index));
     String city;
     switch (event.index) {
@@ -75,7 +75,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       default:
         city = 'London';
     }
-    currentLanguage = event.lang;
+
     WeatherModelList weather = await _service.getWeather(city, currentLanguage);
 
     emit(TabChangeLoaded(weather: weather, currentTabIndex: event.index));
