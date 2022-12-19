@@ -16,5 +16,5 @@ Or you can run the app in your Android/IOS emulator directly.
 ## Screenshots
 
 <p float="left">
-  <img src="https://github.com/andreslowenstein/flutter-weather-forecast/assets/icons-weather.png" width="300"> 
+  <img src="https://github.com/andreslowenstein/flutter-weather-forecast/blob/main/assets/app.png" width="300"> 
 </p>
