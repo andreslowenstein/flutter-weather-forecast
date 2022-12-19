@@ -2,13 +2,13 @@
 
 WeatherForecast it's an weather app developed by Andrés Lowenstein.
 
-##Usage:
+## Usage:
 
-###Install:
+### Install:
 ```sh
 flutter pub get
 ```
-###Run:
+### Run:
 ```sh
 flutter build apk
 ```
