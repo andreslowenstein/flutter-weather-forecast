@@ -59,14 +59,6 @@ class WFNavBar extends StatelessWidget {
               label: 'New York',
               tooltip: '',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-                size: 30,
-              ),
-              label: 'Contact',
-              tooltip: '',
-            ),
           ],
           selectedItemColor: Theme.of(context).colorScheme.onPrimary,
           selectedLabelStyle: TextStyle(

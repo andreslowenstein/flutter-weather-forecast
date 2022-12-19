@@ -22,7 +22,7 @@ dependencies:
 
 flutter_native_splash:
   color: "#4b4b4b"
-  image: assets/480_Color_gris.png
+  image: assets/icons-weather.png
 
 dev_dependencies:
   flutter_test:

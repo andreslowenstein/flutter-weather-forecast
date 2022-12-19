@@ -119,7 +119,7 @@ class _HomeWeatherState extends State<HomeWeather> {
                     height: 10,
                   ),
                   Text(
-                    currentWeather.main!.temp.toString() + '°',
+                    currentWeather.main!.temp!.round().toString() + '°',
                     style: text.displayLarge!.copyWith(color: color.onPrimary),
                     textAlign: TextAlign.center,
                   ),
@@ -137,7 +137,8 @@ class _HomeWeatherState extends State<HomeWeather> {
                             height: 10,
                           ),
                           Text(
-                            currentWeather.main!.tempMin.toString() + '°',
+                            currentWeather.main!.tempMin!.round().toString() +
+                                '°',
                             style: text.bodyMedium!.copyWith(
                               color: color.onPrimary,
                               fontWeight: FontWeight.w600,
@@ -159,7 +160,8 @@ class _HomeWeatherState extends State<HomeWeather> {
                             height: 10,
                           ),
                           Text(
-                            currentWeather.main!.tempMax.toString() + '°',
+                            currentWeather.main!.tempMax!.round().toString() +
+                                '°',
                             style: text.bodyMedium!.copyWith(
                               color: color.onPrimary,
                               fontWeight: FontWeight.w600,
@@ -191,13 +193,6 @@ class _HomeWeatherState extends State<HomeWeather> {
                   CardWeather(weatherList, text, color)
                 ],
               ),
-            ),
-          ),
-          footer: Padding(
-            padding: EdgeInsets.only(bottom: 20.0),
-            child: Image.asset(
-              'assets/480_Color_gris.png',
-              height: 60,
             ),
           ),
         ),
