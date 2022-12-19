@@ -27,5 +27,5 @@ Or you can run the app in your Android/IOS emulator directly.
 ## Author
 
 #### Andrés Lowenstein
-Github: ([@andreslowenstein](https://github.com/andreslowenstein))
-LinkedIn: ([@andreslowenstein](https://www.linkedin.com/in/andreslowenstein/))
+- Github: ([@andreslowenstein](https://github.com/andreslowenstein))
+- LinkedIn: ([@andreslowenstein](https://www.linkedin.com/in/andreslowenstein/))
